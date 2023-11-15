@@ -6,6 +6,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    private ExitLine _activeLine;
+    [SerializeField] private ExitLine[] _exitLines;
+    [SerializeField] private TransportLine[] _TransformLines;
+
 
     [Header("-----BOX MANAGEMENT")] [SerializeField]
     private List<GameObject> _BoxPool;
@@ -28,6 +32,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(SendBox());
+
+        _activeLine = _exitLines[0];
     }
 
     IEnumerator SendBox()
@@ -56,6 +62,29 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        
+
+        if (Time.timeScale !=0)
+        {
+            Ray _Ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                if (Physics.Raycast(_Ray,out RaycastHit hit,100))
+                {
+                    if (hit.transform.gameObject.CompareTag("Line"))
+                    {
+                        if (_activeLine !=null)
+                        {
+                           _activeLine.LeaveTheChoice();
+                        }
+
+                       _activeLine = hit.transform.gameObject.GetComponent<ExitLine>();
+                        _activeLine.Choose();
+                        Debug.Log(hit.transform.gameObject.name);
+                    }
+                }
+            }
+        }
+
     }
 }

@@ -351,6 +351,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ab3ee3362a5e80438de82a122a6ecd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _exitLines:
+  - {fileID: 439671958}
+  - {fileID: 1712039322}
+  - {fileID: 1785064648}
+  _TransformLines:
+  - {fileID: 8256529412103951873}
+  - {fileID: 439671955}
+  - {fileID: 1712039319}
+  - {fileID: 1785064645}
   _BoxPool:
   - {fileID: 60718735924936327}
   - {fileID: 539910976}
@@ -481,7 +490,7 @@ GameObject:
   - component: {fileID: 439671955}
   - component: {fileID: 439671958}
   m_Layer: 0
-  m_Name: Main_Line_Top
+  m_Name: Main_Line_Top_Lyon
   m_TagString: Line
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2349,7 +2358,7 @@ GameObject:
   - component: {fileID: 1712039319}
   - component: {fileID: 1712039322}
   m_Layer: 0
-  m_Name: Main_Line_Top
+  m_Name: Main_Line_Top_Tokyo
   m_TagString: Line
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2656,7 +2665,7 @@ GameObject:
   - component: {fileID: 1785064645}
   - component: {fileID: 1785064648}
   m_Layer: 0
-  m_Name: Main_Line_Top
+  m_Name: Main_Line_Top_Dubai
   m_TagString: Line
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
