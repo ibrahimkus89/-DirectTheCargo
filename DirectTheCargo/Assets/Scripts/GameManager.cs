@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     private int _BoxPoolIndex;
     public float _CheckOutTime;
 
+    public int _C_BoxNumber;
     void Awake()
     {
         if (Instance ==null)
@@ -116,12 +117,82 @@ public class GameManager : MonoBehaviour
 
     public void TransferSuccessful()
     {
-        Debug.Log("Successful");
+        _C_BoxNumber++;
+        GameSpeed(_C_BoxNumber);
+        Debug.Log("BoxNumber" +_C_BoxNumber);
+
+        /* if (_C_BoxNumber ==5)
+         {
+             foreach (var item in _TransformLines)
+             {
+                 item._Speed = .6f;
+             }
+             _CheckOutTime = 1.5f;
+         }
+         else if (_C_BoxNumber == 10)
+         {
+             foreach (var item in _TransformLines)
+             {
+                 item._Speed = .7f;
+             }
+             _CheckOutTime = 1.3f;
+         }*/
+
+        /*switch (_C_BoxNumber)
+        {
+              case 5:
+                foreach (var item in _TransformLines)
+                {
+                    item._Speed = .6f;
+                }
+                _CheckOutTime = 1.5f;
+                break;
+              case 10:
+                foreach (var item in _TransformLines)
+                {
+                    item._Speed = .7f;
+                }
+                _CheckOutTime = 1.3f;
+                break;
+              case 15:
+                  foreach (var item in _TransformLines)
+                  {
+                      item._Speed = .8f;
+                  }
+                  _CheckOutTime = 1.2f;
+                  break;
+              case 20:
+                  foreach (var item in _TransformLines)
+                  {
+                      item._Speed = .9f;
+                  }
+                  _CheckOutTime = 1f;
+                  break;
+              case 25:
+                  foreach (var item in _TransformLines)
+                  {
+                      item._Speed = 1f;
+                  }
+                  _CheckOutTime = .9f;
+                  break;
+
+        }*/
     }
 
-    public void TransferFailed()
+public void GameSpeed(int limitValue)
+{
+if (limitValue ==5 || limitValue == 10 || limitValue == 15 || limitValue == 20 || limitValue == 25)
+{
+    foreach (var item in _TransformLines)
     {
-        Debug.Log("Fail");
-
+        item._Speed += .1f;
     }
+    _CheckOutTime -= .1f;
+}
+}
+public void TransferFailed()
+{
+Debug.Log("Fail");
+
+}
 }
