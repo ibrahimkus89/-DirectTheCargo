@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     private ExitLine _activeLine;
-    [SerializeField] private ExitLine[] _exitLines;
+    //[SerializeField] private ExitLine[] _exitLines;
+    [SerializeField] private ExitLine _DefaultExitLines;
     [SerializeField] private TransportLine[] _TransformLines;
 
 
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(SendBox());
 
-        _activeLine = _exitLines[0];
+        _activeLine = _DefaultExitLines;
     }
 
     IEnumerator SendBox()
@@ -75,16 +76,52 @@ public class GameManager : MonoBehaviour
                     {
                         if (_activeLine !=null)
                         {
-                           _activeLine.LeaveTheChoice();
+                           _activeLine.LightProcess(0);
                         }
 
                        _activeLine = hit.transform.gameObject.GetComponent<ExitLine>();
-                        _activeLine.Choose();
-                        Debug.Log(hit.transform.gameObject.name);
+                        _activeLine.LightProcess(1);
+                        //Debug.Log("City Name : " +_activeLine._CityName);
+
                     }
                 }
             }
         }
+
+    }
+
+    public Transform LineAcceptancePoint()
+    {
+        if (_activeLine !=null)
+        {
+            return _activeLine._Destination.transform;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public string LineCityName()
+    {
+        if (_activeLine != null)
+        {
+            return _activeLine._CityName;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public void TransferSuccessful()
+    {
+        Debug.Log("Successful");
+    }
+
+    public void TransferFailed()
+    {
+        Debug.Log("Fail");
 
     }
 }

@@ -9,19 +9,11 @@ public class ExitLine : MonoBehaviour
     [SerializeField] private SpriteRenderer _LightSpite;
     public Transform _Destination;
 
-    public void Choose()
-    {
-        _LightSpite.sprite = _Lights[1];
-    }
-    public void LeaveTheChoice()
-    {
-        _LightSpite.sprite = _Lights[0];
-    }
+   
 
-    //Optional
-
-    //public void LightOption(int situation)
-    //{
-    //    _LightSpite.sprite = _Lights[situation];
-    //}
+    
+    public void LightProcess(int situation)
+    {
+        _LightSpite.sprite = _Lights[situation];
+    }
 }
