@@ -12,13 +12,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TransportLine[] _TransformLines;
 
 
-    [Header("-----BOX MANAGEMENT")] [SerializeField]
-    private List<GameObject> _BoxPool;
+    [Header("-----BOX MANAGEMENT")]
+    [SerializeField] private List<GameObject> _BoxPool;
     [SerializeField] private Transform _BoxExitPoint;
     private int _BoxPoolIndex;
     public float _CheckOutTime;
 
-    public int _C_BoxNumber;
+    int _C_BoxNumber;
+
+    [Header("-----SOUND MANAGEMENT")]
+    [SerializeField] AudioSource[] _AudioSources;
+
+
     void Awake()
     {
         if (Instance ==null)
@@ -36,6 +41,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(SendBox());
 
         _activeLine = _DefaultExitLines;
+         SceneProcess();
     }
 
     IEnumerator SendBox()
@@ -117,6 +123,7 @@ public class GameManager : MonoBehaviour
 
     public void TransferSuccessful()
     {
+        PlaySound(2);
         _C_BoxNumber++;
         GameSpeed(_C_BoxNumber);
         Debug.Log("BoxNumber" +_C_BoxNumber);
@@ -179,20 +186,40 @@ public class GameManager : MonoBehaviour
         }*/
     }
 
-public void GameSpeed(int limitValue)
-{
-if (limitValue ==5 || limitValue == 10 || limitValue == 15 || limitValue == 20 || limitValue == 25)
-{
-    foreach (var item in _TransformLines)
+    public void GameSpeed(int limitValue)
     {
-        item._Speed += .1f;
+        if (limitValue == 5 || limitValue == 10 || limitValue == 15 || limitValue == 20 || limitValue == 25)
+        {
+            foreach (var item in _TransformLines)
+            {
+                item._Speed += .1f;
+            }
+            _CheckOutTime -= .1f;
+        }
     }
-    _CheckOutTime -= .1f;
-}
-}
-public void TransferFailed()
-{
-Debug.Log("Fail");
+    public void TransferFailed()
+    {
+        PlaySound(3);
+        if (_C_BoxNumber > PlayerPrefs.GetInt("HighScore"))
+        {
+            PlayerPrefs.SetInt("HighScore", _C_BoxNumber);
+            Debug.Log("NEW SCORE : " + _C_BoxNumber);
+        }
 
-}
+        Time.timeScale = 0;
+
+    }
+
+    void SceneProcess()
+    {
+        if (!PlayerPrefs.HasKey("HighScore"))
+        {
+            PlayerPrefs.SetInt("HighScore", 0);
+        }
+    }
+
+    void PlaySound(int Indexx)
+    {
+        _AudioSources[Indexx].Play();
+    }
 }
